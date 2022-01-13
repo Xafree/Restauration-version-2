@@ -1,25 +1,36 @@
 package com.example.restauration.test_recette;
-import com.example.restauration.modele.Commande;
 import com.example.restauration.modele.Restaurant;
-import com.example.restauration.modele.Serveur;
+import com.example.restauration.utils.Builder.RestaurantBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.List;
-
-
 
 public class RestaurantTest {
+
     @Test
-    public void calculChiffreAffaireRestaurant() {
-        float montantCommande = 5F;
-        Restaurant restaurant = new Restaurant();
-        Serveur serveur1 = new Serveur();
-        Serveur serveur2 = new Serveur();
-        serveur1.prendreCommande(new Commande(montantCommande));
-        serveur2.prendreCommande(new Commande(montantCommande));
-        restaurant.addServeur(serveur1);
-        restaurant.addServeur(serveur2);
-        Assertions.assertEquals(2 * montantCommande, restaurant.getChiffreAffaire());
+    public void calculChiffreAffaireRestaurant_Cas0Serveurs() {
+        RestaurantBuilder restaurantBuilder = new RestaurantBuilder();
+        Restaurant restaurant = restaurantBuilder.build();
+        Assertions.assertEquals(0, restaurant.getChiffreAffaire());
+    }
+
+    @Test
+    public void calculChiffreAffaireRestaurant_Cas1Serveurs() {
+        RestaurantBuilder restaurantBuilder = new RestaurantBuilder();
+        Restaurant restaurant = restaurantBuilder.ajouterServeursAvecCommandes(1, 1).build();
+        Assertions.assertEquals(5F, restaurant.getChiffreAffaire());
+    }
+
+    @Test
+    public void calculChiffreAffaireRestaurant_Cas2Serveurs() {
+        RestaurantBuilder restaurantBuilder = new RestaurantBuilder();
+        Restaurant restaurant = restaurantBuilder.ajouterServeursAvecCommandes(2, 1).build();
+        Assertions.assertEquals(10F, restaurant.getChiffreAffaire());
+    }
+
+    @Test
+    public void calculChiffreAffaireRestaurant_Cas100Serveurs() {
+        RestaurantBuilder restaurantBuilder = new RestaurantBuilder();
+        Restaurant restaurant = restaurantBuilder.ajouterServeursAvecCommandes(100, 1).build();
+        Assertions.assertEquals(500F, restaurant.getChiffreAffaire());
     }
 }
