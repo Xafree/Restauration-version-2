@@ -2,6 +2,7 @@ package com.example.restauration.test_recette;
 
 import com.example.restauration.modele.Commande;
 import com.example.restauration.modele.Serveur;
+import com.example.restauration.utils.Builder.ServeurBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -31,12 +32,8 @@ class ServeurTest {
 
     @Test
     public void ChiffreAffairePlusieursCommande(){
-        Serveur serveur = new Serveur();
-        Commande commande1 = new Commande(5F);
-        Commande commande2 = new Commande(5F);
+        Serveur serveur = new ServeurBuilder().buildAvecCommandes(2);
 
-        serveur.prendreCommande(commande1);
-        serveur.prendreCommande(commande2);
         int result = 10;
 
         Assertions.assertEquals(result,serveur.getChiffreAffaire());
